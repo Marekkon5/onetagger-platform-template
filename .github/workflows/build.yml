@@ -1,0 +1,55 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build-linux:
+    name: Linux
+    # For glibc compatibility
+    runs-on: ubuntu-18.04
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        cargo build --release
+    
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: plugin-linux
+        path: target/release/*.so
+
+  build-windows:
+    name: Windows
+    runs-on: windows-latest
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        cargo build --release
+    
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: plugin-windows
+        path: target/release/*.dll
+
+  build-mac:
+    name: Mac
+    runs-on: macos-latest
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        cargo build --release
+    
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: plugin-mac
+        path: target/release/*.dylib
