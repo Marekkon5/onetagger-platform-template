@@ -52,4 +52,4 @@ impl AutotaggerSource for Platform {
 }
 
 // Required to make this work as a plugin
-create_plugin!(PlatformBuilder);
+create_plugin!(PlatformBuilder, Platform);
