@@ -1,3 +1,5 @@
+#[macro_use] extern crate log;
+
 use onetagger_tagger::{
     create_plugin, AudioFileInfo, AutotaggerSource, AutotaggerSourceBuilder, PlatformInfo,
     TaggerConfig, Track,
@@ -47,6 +49,10 @@ impl AutotaggerSource for Platform {
         _config: &TaggerConfig,
     ) -> Result<Option<(f64, Track)>, Box<dyn Error>> {
         // Check onetagger_tagger::MatchingUtils for track matching functions
+
+        // You can also use logging:
+        info!("Log from match_track from custom platform!");
+
         Ok(None)
     }
 }

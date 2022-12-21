@@ -9,4 +9,12 @@ edition = "2021"
 crate-type = ["dylib"]
 
 [dependencies]
+
+# log is required!
+log = "0.4"
+
 onetagger-tagger = { git = "https://github.com/Marekkon5/onetagger.git" }
+
+[profile.release]
+strip = true
+opt-level = "z"
