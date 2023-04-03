@@ -17,4 +17,4 @@ onetagger-tagger = { git = "https://github.com/Marekkon5/onetagger.git" }
 
 [profile.release]
 strip = true
-opt-level = "z"
+opt-level = 3

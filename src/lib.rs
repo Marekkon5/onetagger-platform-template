@@ -1,8 +1,9 @@
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate log;
 
 use onetagger_tagger::{
-    create_plugin, AudioFileInfo, AutotaggerSource, AutotaggerSourceBuilder, PlatformInfo,
-    TaggerConfig, Track,
+    create_plugin, supported_tags, AudioFileInfo, AutotaggerSource, AutotaggerSourceBuilder,
+    PlatformInfo, TaggerConfig, Track,
 };
 use std::error::Error;
 
@@ -35,6 +36,8 @@ impl AutotaggerSourceBuilder for PlatformBuilder {
             // 0 - for user defined number threads
             max_threads: 1,
             custom_options: Default::default(),
+            requires_auth: false,
+            supported_tags: supported_tags!(Title, Artist),
         }
     }
 }
