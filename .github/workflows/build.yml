@@ -16,7 +16,7 @@ jobs:
         cargo build --release
     
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: plugin-linux
         path: target/release/*.so
@@ -34,7 +34,7 @@ jobs:
         cargo build --release
     
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: plugin-windows
         path: target/release/*.dll
@@ -52,7 +52,7 @@ jobs:
         cargo build --release
     
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: plugin-mac
         path: target/release/*.dylib
