@@ -1,11 +1,12 @@
 #[macro_use]
 extern crate log;
 
+use anyhow::Error;
 use onetagger_tagger::{
     create_plugin, supported_tags, AudioFileInfo, AutotaggerSource, AutotaggerSourceBuilder,
-    PlatformInfo, TaggerConfig, Track,
+    ConfigCallbackResponse, PlatformInfo, TaggerConfig, Track, TrackMatch,
 };
-use std::error::Error;
+use serde_json::Value;
 
 /// Is used to get metadata about plugin and to create instances of `AutotaggerSource`
 struct PlatformBuilder {}
@@ -16,10 +17,7 @@ impl AutotaggerSourceBuilder for PlatformBuilder {
     }
 
     /// Create new instance of `AutotaggerSource`, will be called n-threads times
-    fn get_source(
-        &mut self,
-        _config: &TaggerConfig,
-    ) -> Result<Box<dyn AutotaggerSource>, Box<dyn Error>> {
+    fn get_source(&mut self, _config: &TaggerConfig) -> Result<Box<dyn AutotaggerSource>, Error> {
         Ok(Box::new(Platform {}))
     }
 
@@ -40,23 +38,32 @@ impl AutotaggerSourceBuilder for PlatformBuilder {
             supported_tags: supported_tags!(Title, Artist),
         }
     }
+
+    /// (Optional)
+    fn config_callback(&mut self, _name: &str, _config: Value) -> ConfigCallbackResponse {
+        ConfigCallbackResponse::Empty
+    }
 }
 
 struct Platform {}
 
 impl AutotaggerSource for Platform {
-    /// Returns Err if an error happened, `Ok(None)` if no matches, Ok(Some(accuracy from 0.0 to 1.0, track)) for matched track
+    /// This function should return matched tracks with least info possible
     fn match_track(
         &mut self,
         _info: &AudioFileInfo,
         _config: &TaggerConfig,
-    ) -> Result<Option<(f64, Track)>, Box<dyn Error>> {
-        // Check onetagger_tagger::MatchingUtils for track matching functions
+    ) -> Result<Vec<TrackMatch>, Error> {
+        // Check docs for onetagger_tagger::MatchingUtils for useful funct
 
-        // You can also use logging:
-        info!("Log from match_track from custom platform!");
+        info!("You can also use log here!");
 
-        Ok(None)
+        Ok(vec![])
+    }
+
+    /// This function gets called on the matched track to fill in any remaining info
+    fn extend_track(&mut self, _track: &mut Track, _config: &TaggerConfig) -> Result<(), Error> {
+        Ok(())
     }
 }
 

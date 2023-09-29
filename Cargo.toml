@@ -10,8 +10,10 @@ crate-type = ["dylib"]
 
 [dependencies]
 
-# log is required!
+# Required by 1T
 log = "0.4"
+anyhow = "1.0"
+serde_json = "1.0"
 
 onetagger-tagger = { git = "https://github.com/Marekkon5/onetagger.git" }
 

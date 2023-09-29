@@ -18,6 +18,19 @@ Change `my-platform` to your platform name
 name = "my-platform"
 ```
 
+Add dependencies:
+
+```
+[dependencies]
+log = "0.4"
+anyhow = "1.0"
+serde_json = "1.0"
+
+onetagger-tagger = { git = "https://github.com/Marekkon5/onetagger.git" }
+```
+
+**NOTE:** It is recommended to use a specific commit of `onetagger-tagger`
+
 ### 3. Implement
 In `src/lib.rs` implement an `AutotaggerSourceBuilder`, `AutotaggerSource` and call `create_plugin!` with your `AutotaggerSourceBuilder` implementation.
 
@@ -48,3 +61,9 @@ to:
 
 
 ### 7. Restart OneTagger and use.
+
+### 8. (Optional) Publish
+
+You can create or edit the `info.json` file with metadata about the platform, and then create a Pull Request to include this platform within the `platforms` folder in https://github.com/Marekkon5/onetagger-platforms
+
+By doing this other will be able to download your platform directly from 1T.

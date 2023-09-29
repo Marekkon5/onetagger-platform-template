@@ -1,0 +1,10 @@
+{
+    "id": "example",
+    "name": "Example",
+    "description": "Example platform",
+    "version": "1.0.0",
+    "maxThreads": 4,
+    "requiresAuth": true,
+    "supportedVersion": 42,
+    "author": "marekkon5"
+}
